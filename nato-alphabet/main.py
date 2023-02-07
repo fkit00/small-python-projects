@@ -1,10 +1,27 @@
-# list comprehension - making a list from a previous list 
+student_dict = {
+    "student": ["Angela", "James", "Lily"], 
+    "score": [56, 76, 98]
+}
 
-numbers = [1,2,3,4]
-new_numbers = [item+1 for item in numbers]
-print(new_numbers)
+#Looping through dictionaries:
+for (key, value) in student_dict.items():
+    #Access key and value
+    pass
 
-name = "Fiona"
-new_name=[print(letter) for letter in name]
+import pandas
+student_data_frame = pandas.DataFrame(student_dict)
 
-new_list=[print(n*2) for n in range (0,6)]
+#Loop through rows of a data frame
+for (index, row) in student_data_frame.iterrows():
+    #Access index and row
+    #Access row.student or row.score
+    pass
+
+# Keyword Method with iterrows()
+# {new_key:new_value for (index, row) in df.iterrows()}
+
+#TODO 1. Create a dictionary in this format:
+{"A": "Alfa", "B": "Bravo"}
+
+#TODO 2. Create a list of the phonetic code words from a word that the user inputs.
+
