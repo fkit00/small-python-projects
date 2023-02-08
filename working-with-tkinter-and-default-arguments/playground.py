@@ -10,10 +10,13 @@ def add(*args):
 add(4,6,7,4)
 
 # unlimited keyword arguments 
-def calculate(**kwargs):
+def calculate(n, **kwargs):
     print(kwargs)
     for key, value in kwargs.items():
         print(key)
         print(value)
+    n += kwargs["add"]
+    n*= kwargs["multiply"]
+    print(n)
 
-calculate(add=4, plus=8)
+calculate(2, add=4, multiply=8)
