@@ -7,13 +7,19 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
+WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps=0
+timer= None
 
 # ---------------------------- TIMER RESET ------------------------------- # 
-
+def reset_time():
+    window.after_cancel(timer)
+    title.config(text="Timer")
+    canvas.itemconfig(timer_text, text ="00:00")
+    global reps
+    reps =0
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def on_start():
     global reps
@@ -42,7 +48,8 @@ def count_down(count):
 
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
     if count >0:
-       window.after(1000, count_down, count-1)
+        global timer
+        timer = window.after(1000, count_down, count-1)
     else:
         on_start()
         mark = ""
@@ -74,7 +81,7 @@ title=Label(text ="Timer", font=(FONT_NAME, 35, "bold"), fg=GREEN)
 title.grid(row=0,column=1)
 start= Button(text="Start", font=(FONT_NAME, 12, "normal"), highlightthickness=0, command=on_start)
 start.grid(row=2, column=0)
-reset= Button(text="Reset", font=(FONT_NAME, 12, "normal"),highlightthickness=0)
+reset= Button(text="Reset", font=(FONT_NAME, 12, "normal"),highlightthickness=0, command=reset_time)
 reset.grid(row=2, column=2)
 checkmark= Label(text="", font=(FONT_NAME, 20, "normal"), fg=GREEN)
 checkmark.grid(row=2, column=1)
