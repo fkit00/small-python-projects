@@ -1,17 +1,25 @@
 from tkinter import * 
+from tkinter import messagebox
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_to_file():
-     f = open("pass_file.txt", "a")
-     website=web_input.get()
-     email = email_input.get()
-     passwd= pass_input.get()
-     f.write(f"{website}||{email}||{passwd}\n")
-     f.close
-     web_input.delete(0, END)
-     pass_input.delete(0, END)
+    f = open("pass_file.txt", "a")
+    website=web_input.get()
+    email = email_input.get()
+    passwd= pass_input.get()
+
+    if len(website) == 0 or len(passwd) ==0:
+        messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty")
+    else:
+        is_ok = messagebox.askokcancel(title=website, message=f"These are the details you've provided: \n Email: {email} \n Password: {passwd}\n Is it okay to save?")
+        if is_ok:
+            f.write(f"{website}||{email}||{passwd}\n")
+            f.close
+            web_input.delete(0, END)
+            pass_input.delete(0, END)
+
 
 
 
