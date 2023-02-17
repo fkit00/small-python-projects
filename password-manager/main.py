@@ -1,6 +1,7 @@
 from tkinter import * 
 from tkinter import messagebox
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 #Password Generator Project
@@ -28,17 +29,26 @@ def gen_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def add_to_file():
-    f = open("pass_file.txt", "a")
+    
     website=web_input.get()
     email = email_input.get()
     passwd= pass_input.get()
+    new_data={website:{
+        "email":email,
+        "password":passwd
+
+    }}
+   
 
     if len(website) == 0 or len(passwd) ==0:
         messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty")
     else:
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details you've provided: \n Email: {email} \n Password: {passwd}\n Is it okay to save?")
         if is_ok:
-            f.write(f"{website}||{email}||{passwd}\n")
+            f=open("python\small-python-projects\password-manager\pass_file.json", "w")
+            print(new_data)
+                # the data is getting made but not working to save???
+            json.dump(new_data, f)
             f.close
             web_input.delete(0, END)
             pass_input.delete(0, END)
@@ -52,7 +62,7 @@ window = Tk()
 window.title("Password Manager")
 window.config(padx=40, pady=40)
 
-pic= PhotoImage(file='logo.png')
+pic= PhotoImage(file='python\small-python-projects\password-manager\logo.png')
 canvas= Canvas(height=200, width=200, highlightthickness=0)
 canvas.create_image(100,100,image=pic)
 canvas.grid(row=0, column=1)
