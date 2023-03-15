@@ -66,8 +66,24 @@ def add_to_file():
                 web_input.delete(0, END)
                 pass_input.delete(0, END)
 
+def find():
+    website = web_input.get()
+    print(website)
 
-
+    try:
+        with open("python\\small-python-projects\\password-manager\\pass_file.json") as data_file:
+            data =json.load(data_file)
+    except FileNotFoundError:
+            messagebox.showinfo(title="Error", message= "No data file found")
+    else:          
+            if website in data:
+                email = data[website]["email"]
+                print(email)
+                password = data[website]["password"]
+                print(password)
+                messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+            else:
+                 messagebox.showinfo(title="Error", message= "This website hasn't been found")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -83,15 +99,18 @@ canvas.grid(row=0, column=1)
 web_label = Label(text="Website: ")
 web_label.grid(row=1, column=0)
 
-web_input = Entry(width=35)
-web_input.grid(row=1, column=1, columnspan=2)
+web_input = Entry(width=21)
+web_input.grid(row=1, column=1, columnspan=1)
 web_input.focus() # lands the cursor here
 
+web_button=Button(text="Search", command=find, width=13)
+web_button.grid(row=1, column=2)
 
-email_label= Label(text="Email/Username: ")
+
+email_label= Label(text="Email/Username:")
 email_label.grid(row=2, column=0)
 
-email_input=Entry(width=35)
+email_input=Entry(width=40)
 email_input.grid(row=2, column=1, columnspan=2)
 
 email_input.insert(0, "fake.email@fakeemail.com")
