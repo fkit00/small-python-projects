@@ -1,1 +1,18 @@
-{"amazon": {"email": "fake.email@fakeemail.com", "password": "nW&MjbQ!hn+84lX"}}
+{
+    "hello": {
+        "email": "fake.email@fakeemail.com",
+        "password": "Z!iN%u7TIOy09wX"
+    },
+    "googly": {
+        "email": "fake.email@fakeemail.com",
+        "password": "ecpJ&D6yZ40Z!%i"
+    },
+    "amazonnnn": {
+        "email": "fake.email@fakeemail.com",
+        "password": "(!O53fwctSj)v1A"
+    },
+    "fake.com": {
+        "email": "fake.email@fakeemail.com",
+        "password": "*ZNi&HN5#hn2I!"
+    }
+}

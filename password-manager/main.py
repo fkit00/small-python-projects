@@ -45,13 +45,17 @@ def add_to_file():
     else:
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details you've provided: \n Email: {email} \n Password: {passwd}\n Is it okay to save?")
         if is_ok:
-            f=open("python\small-python-projects\password-manager\pass_file.json", "w")
-            print(new_data)
-                # the data is getting made but not working to save???
-            json.dump(new_data, f)
-            f.close
-            web_input.delete(0, END)
-            pass_input.delete(0, END)
+            ## split into one read where u can update and one write 
+            with open("python\\small-python-projects\\password-manager\\pass_file.json", "r") as data_file:
+                # reading the old data 
+                data = json.load(data_file)
+                #updating old data 
+                data.update(new_data)
+            with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
+                #saving updated data 
+                json.dump(data, data_file, indent =4)
+                web_input.delete(0, END)
+                pass_input.delete(0, END)
 
 
 
@@ -62,7 +66,7 @@ window = Tk()
 window.title("Password Manager")
 window.config(padx=40, pady=40)
 
-pic= PhotoImage(file='python\small-python-projects\password-manager\logo.png')
+pic= PhotoImage(file='python\\small-python-projects\\password-manager\\logo.png')
 canvas= Canvas(height=200, width=200, highlightthickness=0)
 canvas.create_image(100,100,image=pic)
 canvas.grid(row=0, column=1)
