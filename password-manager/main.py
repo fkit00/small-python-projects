@@ -46,14 +46,20 @@ def add_to_file():
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details you've provided: \n Email: {email} \n Password: {passwd}\n Is it okay to save?")
         if is_ok:
             ## split into one read where u can update and one write 
-            with open("python\\small-python-projects\\password-manager\\pass_file.json", "r") as data_file:
+            try:
+                with open("python\\small-python-projects\\password-manager\\pass_file.json", "r") as data_file:
                 # reading the old data 
-                data = json.load(data_file)
+                    data = json.load(data_file)
+            except FileNotFoundError:
+                    with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
+                        json.dump(new_data, data_file, indent =4)
+            else:
                 #updating old data 
                 data.update(new_data)
-            with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
-                #saving updated data 
-                json.dump(data, data_file, indent =4)
+                with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
+                    #saving updated data 
+                    json.dump(data, data_file, indent =4)
+            finally:        
                 web_input.delete(0, END)
                 pass_input.delete(0, END)
 
