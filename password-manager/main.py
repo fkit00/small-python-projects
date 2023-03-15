@@ -49,12 +49,15 @@ def add_to_file():
             try:
                 with open("python\\small-python-projects\\password-manager\\pass_file.json", "r") as data_file:
                 # reading the old data 
+                    print("problem here")
                     data = json.load(data_file)
+                    
             except FileNotFoundError:
-                    with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
+                with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
                         json.dump(new_data, data_file, indent =4)
             else:
                 #updating old data 
+                print('made it to the else')
                 data.update(new_data)
                 with open("python\\small-python-projects\\password-manager\\pass_file.json", "w") as data_file:
                     #saving updated data 
