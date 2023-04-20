@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+import time 
 
 MY_LAT = 51.507351
 MY_LONG =  -0.127758
@@ -34,8 +35,11 @@ def is_night():
 
 # this gives us the hours of the sunrise times - now we want to test wether it's close to our position
 #our margin is + or - 5
-# we want to compare our lat and long with the iss and add in a degree of error 
-if is_iss_overhead() and is_night():
-    print("Look up!")
-else:
-    print("nothing to see here")
+# we want to compare our lat and long with the iss and add in a degree of error
+# 
+while True: 
+    time.sleep(60)
+    if is_iss_overhead() and is_night():
+        print("Look up!")
+    else:
+        print("nothing to see here")
