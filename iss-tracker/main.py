@@ -4,33 +4,38 @@ from datetime import datetime
 MY_LAT = 51.507351
 MY_LONG =  -0.127758
 
-# response =requests.get(url="http://api.open-notify.org/iss-now.json")
-# print(response)
+def is_iss_overhead():
+    response =requests.get(url="http://api.open-notify.org/iss-now.json")
+    data = response.json()["iss_position"]
 
-# data = response.json()["iss_position"]
-# print(data)
+    iss_longitude = float(data["longitude"])
+    iss_latitude = float(data["latitude"])
 
-# longitude = response.json()["iss_position"]["longitude"]
-# latitude = response.json()["iss_position"]["latitude"]
-
-# iss_positon=(longitude, latitude)
-# print(iss_positon)
+    if MY_LAT -5 <= iss_latitude <= MY_LAT+5 and MY_LONG -5 <= iss_longitude <= MY_LONG+5:
+        return True
 
 
-params ={
-    "lat":MY_LAT,
-    "lng":MY_LONG,
-    "formatted":0
-}
+def is_night():
+    params ={
+        "lat":MY_LAT,
+        "lng":MY_LONG,
+        "formatted":0
+    }
+    response = requests.get("https://api.sunrise-sunset.org/json", params=params)
+    data=response.json()
+    sunrise = int(data["results"]["sunrise"].split("T")[1].split(":")[0])
+    sunset = int(data["results"]["sunset"].split("T")[1].split(":")[0])
+    time_now=datetime.now().hour
 
-response = requests.get("https://api.sunrise-sunset.org/json", params=params)
-data=response.json()
-print(data)
-sunrise = data["results"]["sunrise"]
-sunset = data["results"]["sunset"]
+    if time_now >= sunset or time_now <= sunrise:
+        #it's dark 
+        return True 
 
-time_now=datetime.now()
-print(time_now)
-print(sunrise.split("T")[1].split(":")[0],sunset.split("T")[1].split(":")[0])
-print(time_now.hour)
-# this gives us the hours of the sunrise times
+
+# this gives us the hours of the sunrise times - now we want to test wether it's close to our position
+#our margin is + or - 5
+# we want to compare our lat and long with the iss and add in a degree of error 
+if is_iss_overhead() and is_night():
+    print("Look up!")
+else:
+    print("nothing to see here")
