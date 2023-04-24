@@ -1,6 +1,7 @@
 from question_model import Question
 from quiz_brain import QuizBrain
 import requests
+from ui import QuizInterface
 
 questions= requests.get("https://opentdb.com/api.php?amount=10&type=boolean")
 data= questions.json()["results"]
@@ -14,6 +15,7 @@ for question in data:
 
 
 quiz = QuizBrain(question_bank)
+quiz_ui = QuizInterface()
 
 while quiz.still_has_questions():
     quiz.next_question()
